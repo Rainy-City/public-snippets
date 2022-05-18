@@ -1,0 +1,22 @@
+{% if cart.item_count == 0 %}
+  <div class="sixteen columns">
+    <div class="section clearfix">
+      <div class="six columns offset-by-five">
+        <p class="quote">{{ 'cart.general.continue_browsing_html' | t }}</p>
+        <a href="{% if cart.items.first.product.collections != blank %}{{ cart.items.first.product.collections.last.url }}{% else %}/collections/all{% endif %}" class="action_button continue-button add_to_cart">{{ 'cart.general.continue_shopping_link_html' | t }}</a>
+      </div>
+      <br class="clear" />
+    </div>
+  </div>
+{% elsif cart.items.first.variant_id == 12275195905 and cart.item_count == 1  %}
+<div class="sixteen columns">
+  <div class="section clearfix">
+     <div class="six columns offset-by-five">
+       <p class="quote">{{ 'cart.general.continue_browsing_html' | t }}</p>
+       <a href="{% if cart.items.first.product.collections != blank %}{{ cart.items.first.product.collections.last.url }}{% else %}/collections/all{% endif %}" class="action_button continue-button add_to_cart">{{ 'cart.general.continue_shopping_link_html' | t }}</a>
+     </div>
+     <br class="clear" />
+  </div>
+</div>
+{% else %}
+  <form action="/cart" method="post" id="cart_form">

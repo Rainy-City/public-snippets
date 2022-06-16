@@ -1,0 +1,165 @@
+{{ 'component-rca-more-projects.css' | asset_url | stylesheet_tag }}
+
+
+<section class="more_project" id="{{section.id}}">
+    <div class="more_projects_title">
+        <h3>{{section.settings.title}}</h3>
+    </div>
+    <div class="more_projects_container">
+
+        {%for block in section.blocks %}
+        <div class="project_work_row">
+         <div class="project_work_row_image">
+            <div class="project_image_tag_pos">
+                <img src="{{ block.settings.image }}" alt="{{ block.settings.imagealt }}" 
+                srcset="{%- if block.settings.image.width >= 275 -%}{{ block.settings.image | image_url: width: 275 }} 275w,{%- endif -%}
+                {%- if block.settings.image.width >= 550 -%}{{ block.settings.image | image_url: width: 550 }} 550w,{%- endif -%}
+                {%- if block.settings.image.width >= 710 -%}{{ block.settings.image | image_url: width: 710 }} 710w,{%- endif -%}
+                {%- if block.settings.image.width >= 1420 -%}{{ block.settings.image | image_url: width: 1420 }} 1420w,{%- endif -%}
+                {{ block.settings.image | image_url }} {{ block.settings.image.width }}"
+                src="{{ block.settings.image | image_url: width: 550 }}"
+                sizes="(min-width: 990px) {% if block.blocks.size <= 2 %}710px{% else %}550px{% endif %},
+                (min-width: 750px) {% if block.blocks.size == 1 %}710px{% else %}550px{% endif %},
+                calc(100vw - 30px)"
+                alt="{{ block.settings.image.alt }}"
+                height="{{ block.settings.image.height }}"
+                width="{{ block.settings.image.width }}"
+                loading="lazy"
+              >
+              {% if block.settings.category != blank%}
+                <div class="tag_category">
+                    <p>{{block.settings.category}}</p>
+                </div>
+                {% endif %}
+            </div>
+              {% if block.settings.platform != blank or block.settings.project_title != blank %}
+                <div class="project_work_row_text">
+                    <p>{{block.settings.platform}}</p>
+                    <h3>{{block.settings.project_title}}</h3>
+            
+        
+                    {%- if block.settings.button_label != blank -%}
+                    <div class="banner__buttons">
+                      <a {% if block.settings.link %} href="{{ block.settings.link }}"{% else %} role="link" aria-disabled="true"{% endif %} class="button_work_btn">{{ block.settings.button_label | escape }}</a>
+                    </div>
+                  {%- endif -%}
+                  {% endif %}
+                </div>
+            </div>    
+          </div>
+          {%endfor%}
+              <div class="load_more" >
+                    <p>Load More</p>
+              </div>
+    </div>
+</section>
+
+
+{% if section.blocks.size > 2 %}
+<script>
+    var more_projects = document.querySelector('.more_projects_container');
+    var project_work_row = document.querySelectorAll('.project_work_row');
+    var load_more = document.querySelector('.load_more');
+    var project_work_row_length = project_work_row.length;
+    var project_work_row_show = 6;
+    var project_work_row_show_more = project_work_row_length ;
+    var project_work_row_hide = project_work_row_length - project_work_row_show;
+    var project_work_row_hide_counter = 0;
+    var project_work_row_show_counter = 0;
+
+    for (var i = 0; i < project_work_row_length; i++) {
+        if (i < project_work_row_show) {
+            project_work_row[i].style.display = 'block';
+            project_work_row_show_counter++;
+        } else {
+            project_work_row[i].style.display = 'none';
+            project_work_row_hide_counter++;
+        }
+    }
+
+    load_more.addEventListener('click', function () {
+        for (var i = 0; i < project_work_row_length; i++) {
+            if (i < project_work_row_show_more) {
+                project_work_row[i].classList.add('show');
+                project_work_row[i].classList.remove('hide');
+                project_work_row_show_counter++;
+            } else {
+                project_work_row[i].classList.add('hide');
+                project_work_row[i].classList.remove('show');
+                project_work_row_hide_counter++;
+            }
+        }
+        if (project_work_row_show_more == project_work_row_length) {
+            load_more.style.display = 'none';
+        }
+    });
+
+ </script>
+
+
+{% endif %}
+
+
+
+
+
+{% schema %}
+  {
+    "name": "RCA More Projects",
+    "settings": [
+    {
+        "type": "text",
+        "id": "title",
+        "label": "section title"
+        }
+   ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Add More Projects",
+        "settings": [
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Set Project Image"
+          },
+          {
+            "type": "header",
+            "content": "Brand Text Field Section"
+          },
+          {
+            "type": "text",
+            "id": "category",
+            "label": "Enter Project Category"
+        },
+      {
+        "type": "text",
+        "id": "platform",
+        "label": "Platform Project Built On"
+      },
+      {
+        "type": "text",
+        "id": "project_title",
+        "label": "Project Title"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "default": "Button label",
+        "label": "button label"
+      },
+      {
+        "type": "url",
+        "id": "link",
+        "label": "button link"
+      }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "RCA More Projects"
+      }
+    ]
+  }
+{% endschema %}

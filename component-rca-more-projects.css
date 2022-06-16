@@ -1,0 +1,119 @@
+.more_project {
+    padding: 20px;
+}
+
+.more_projects_container {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+.project_work_row {
+    width: 33%;
+    align-items: center;
+    display: none;
+}
+.project_work_row_image {
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: flex-start;
+}
+.project_image_tag_pos{
+position: relative;
+}
+.project_work_row_text {
+    padding-left: 35px;
+}
+.project_work_row_image img {
+    height: auto;
+    width: 100%;
+    padding: 35px 25px 0;
+}
+.more_projects_title {
+    padding-left: 30px;
+}
+.more_projects_title h3 {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 35px;
+    line-height: 60px;
+    color: #000000;
+}
+.project_work_row_text h3 {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 25px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    color: #000000;
+}
+.project_work_row_text p {
+    color: #000000;
+}
+.tag_category {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 137px;
+    height: 32px;
+    margin-top: 35px;
+    margin-right: 35px;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.tag_category p {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 21px;
+    text-align: center;
+    color: #FFFFFF;
+}
+.project_work_row.show {
+    display: flex !important;
+}
+.load_more:hover {
+    background: black;
+}
+
+.load_more:hover p {
+    color: white;
+    background-color: black;
+}
+.load_more {
+    width: 240px;
+    height: 50px;
+    border: 1px solid #000000;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+    margin-bottom: 40px;
+    cursor: pointer;
+}
+.load_more p {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 22px;
+    text-align: center;
+    color: #000000;
+}
+@media screen and (max-width: 567px) {
+    .more_projects_title {
+        padding-left: 5px;
+    }
+}

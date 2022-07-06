@@ -1,0 +1,53 @@
+
+//CREAT A AJAX LOAD MORE FEATURE FOR COLLECTION PAGE
+//HTML FIND SECTION ON COLLECTION THAT IS SIMILAR TO THIS 
+// BEFORE THE FOR LOOP ADD THE "DATA-NEXT-URL"
+
+{%- paginate collection.products by section.settings.grid_items_per_page -%}
+<div class="ProductListWrapper">
+  <div data-next-url ="{{paginate.next.url}}" class=" ProductList ProductList--grid">
+    {%- for product in collection.products -%}
+      <div class="Grid__Cell 1">
+        {%- render 'product-item', product: product, show_product_info: true, show_vendor: section.settings.show_vendor, show_color_swatch: section.settings.show_color_swatch, show_labels: true -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+//CREATE THE LOAD MORE BUTTON HTML MARK UP
+
+<div class ="load-more"> 
+  <a class="load-more__btn" onClick="loadMoreProducts()">Load More</a>
+  <div class="load-more_loader"> </div>
+</div>
+{%- endpaginate -%}
+
+<script>
+var products_on_page = $('.ProductList');
+var next_url = products_on_page.data('next-url');
+var load_more_button = $('.load-more__btn');
+
+
+function loadMoreProducts () {
+    $.ajax(
+        {
+          url: next_url,
+          type:'GET',
+          dataType:'html',
+          beforeSend: function () {
+            load_more_button.text('Loading...');
+          },
+        }
+      ).done(function(next_page){
+        load_more_button.text('Load more');
+        var new_products = $(next_page).find('.ProductList');
+        var new_url = new_products.data('next-url');
+      
+        next_url = new_url;
+      
+      
+        products_on_page.append(new_products.html());
+        console.log(new_products);
+      });
+}
+</script>
